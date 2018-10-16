@@ -36,7 +36,7 @@ void PrintUsage()
     cout << "  (none)                   : print out voices" << endl;
     cout << "  --                       : read filenames from stdin" << endl;
     cout << "  -b config.txt output.syx : select specific voices, breed 32 random voices" << endl;
-    cout << "  -c                       : print out voices with a data CRC" << endl;
+    cout << "  -c                       : print out voices with a data CRC and a CRC that excludes voice name" << endl;
     cout << "  -h                       : help (this message)" << endl;
     cout << "  -i                       : ignore checksum errors" << endl;
     cout << "  -s config.txt output.syx : select specific voices, output to new syx file" << endl;
