@@ -564,6 +564,18 @@ static uint32_t calc_crc(const vector<uint8_t> &data)
     return c ^ 0xffffffffL;
 }
 
+// a CRC calculation that excludes the voice name. Useful for spotting renamed voices, that sound identical.
+static uint32_t calc_crc2(const vector<uint8_t> &data)
+{
+    uint32_t c = 0 ^ 0xffffffffL;
+    if (!crc_table_computed)
+        make_crc_table();
+    for (int i = 0; i < (SYX_VOICE_SIZE - 10); i++) {
+        c = crc_table[(c ^ data[i]) & 0xff] ^ (c >> 8);
+    }
+    return c ^ 0xffffffffL;
+}
+
 
 ostream& operator<<(ostream& os, DxSyx& syx)
 {
@@ -575,6 +587,7 @@ ostream& operator<<(ostream& os, DxSyx& syx)
     } else if (config.print_mode == DxSyxOutputMode::NamesCrc) {
         for(int i = 0; i < SYX_NUM_VOICES; ++i) {
             os << setfill('0') << setw(8) << hex << calc_crc(syx.GetVoiceData(i)) << ",";
+            os << setfill('0') << setw(8) << hex << calc_crc2(syx.GetVoiceData(i)) << ",";		
             os << syx.syx_voices[i] << "," << dec << i+1 << "," << syx._filename << endl;
         }
     } else if (config.print_mode == DxSyxOutputMode::Full) {
