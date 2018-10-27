@@ -7,7 +7,7 @@ options:
   (none)                   : print out voices
   --                       : read filenames from stdin
   -b config.txt output.syx : select specific voices, breed 32 random voices
-  -c                       : print out voices with a data CRC
+  -c                       : print out voices with a data CRC and a CRC that excludes voice name
   -h                       : help (this message)
   -i                       : ignore checksum errors
   -s config.txt output.syx : select specific voices, output to new syx file
